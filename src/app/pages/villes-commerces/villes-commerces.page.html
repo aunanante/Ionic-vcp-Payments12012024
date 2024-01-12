@@ -1,0 +1,69 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>
+      Villes Commerces
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="goToLoginPage()">
+        Login
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- Searchbar for Commerce Name -->
+  <ion-searchbar [(ngModel)]="commerceName" (ionChange)="applyFilters()"
+    placeholder="Search by Commerce Name"></ion-searchbar>
+
+  <!-- Searchbar for Service Name -->
+  <ion-searchbar [(ngModel)]="serviceName" (ionChange)="applyServiceNameFilter()"
+    placeholder="Search by Service Name"></ion-searchbar>
+
+  <!-- Custom Interface for Ville Selection -->
+  <ion-item>
+    <ion-label position="floating">Ville</ion-label>
+    <ion-fab vertical="center" horizontal="end" size="small">
+      <ion-select [(ngModel)]="selectedVille" placeholder="Select Ville" interface="popover"
+        (ionChange)="applyFilters()">
+        <ion-select-option *ngFor="let ville of villes" [value]="ville.id">{{ ville.villename }}</ion-select-option>
+      </ion-select>
+    </ion-fab>
+  </ion-item>
+
+  <!-- Commerce List -->
+  <ion-list *ngIf="commerces.length > 0">
+    <ion-item *ngFor="let commerce of commerces; let i = index" (click)="openCommerceCategoriesPage(commerce.id)"
+      [ngClass]="i % 2 === 0 ? 'even-item' : 'odd-item'">
+      <ion-label>{{ commerce.commercename }}</ion-label>
+    </ion-item>
+  </ion-list>
+
+  <!-- No Commerce Message -->
+  <div *ngIf="commerces.length === 0">
+    <p>No commerces found.</p>
+  </div>
+</ion-content>
+
+<!-- Footer with Apply Filters and Clear Ville Filter Buttons -->
+<ion-footer class="myColor">
+  <div class="form-buttons ion-align-items-center">
+    <!-- Apply Filters Button -->
+    <button (click)="applyFilters()" class="tooltip">
+      <ion-icon name="add-circle"></ion-icon>
+      <span class="tooltiptext">Apply Filters</span>
+    </button>
+
+    <!-- Apply Service Name Filter Button -->
+    <button (click)="applyServiceNameFilter()" class="tooltip">
+      <ion-icon name="add-circle"></ion-icon>
+      <span class="tooltiptext">Apply Service Name Filter</span>
+    </button>
+
+    <!-- Clear Ville Filter Button -->
+    <button (click)="clearVilleFilter()" class="tooltip">
+      <ion-icon name="close-circle"></ion-icon>
+      <span class="tooltiptext">Clear Ville Filter</span>
+    </button>
+  </div>
+</ion-footer>

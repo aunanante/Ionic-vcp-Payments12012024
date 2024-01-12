@@ -1,0 +1,72 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>
+      Categories
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" color="warning">
+  <ion-grid>
+    <!-- First Row (List of Commerces) -->
+    <div class="row first-row">
+      <ion-row class="first-row"> 
+        <ion-col size="12">
+          <ion-content scroll-y="true" style="height: 100px;"> <!-- Set the desired height -->
+            <ion-list>
+              <ion-content scrollY="true" style="height: 300px">
+                <ion-item *ngFor="let commerce of commerces" [ngClass]="{'selected-commerce': commerce === currentCommerce}" (click)="selectCommerce(commerce)">
+                  <ion-label [style.font-weight]="'bold'" [style.color]="commerce === currentCommerce ? 'brown' : 'initial'">{{ commerce.commercename }}</ion-label>
+                </ion-item>
+              </ion-content>
+            </ion-list>                   
+          </ion-content>
+        </ion-col>
+      </ion-row>
+    </div> 
+    <!-- Second Row: List of Categories -->
+    <div class="row second-row">
+      <ion-row class="first-row">
+        <ion-col size="12">
+          <ion-list> 
+            <ion-item *ngFor="let category of categories" (click)="setSelectedCategory(category)">
+              {{ category.categoryname }}
+            </ion-item>
+          </ion-list>
+        </ion-col>
+      </ion-row>
+    </div>
+  </ion-grid>
+</ion-content>
+
+<ion-footer class="myColor">
+  <div class="form-buttons">
+    <!-- Buttons for submit, update, delete, and new -->
+    <ion-row class="ion-align-items-center">
+      <ion-col size="3">
+        <button (click)="openCreateCategoryModal()" class="tooltip">
+          <ion-icon name="add-circle"></ion-icon>
+          <span class="tooltiptext">Create a Category</span>
+        </button>
+      </ion-col>
+      <ion-col size="3">
+        <button (click)="openUpdateCategoryModal()" class="tooltip">
+          <ion-icon name="create"></ion-icon>
+          <span class="tooltiptext">Update a Category</span>
+        </button>
+      </ion-col> 
+      <ion-col size="3">
+        <button (click)="openDeleteCategoryModal()" class="tooltip">
+          <ion-icon name="trash-bin"></ion-icon>
+          <span class="tooltiptext">Delete</span>
+        </button>
+      </ion-col>
+      <ion-col size="3">
+        <button (click)="resetForm()" [disabled]="true" class="tooltip">
+          <ion-icon name="refresh"></ion-icon>
+          <span class="tooltiptext">New</span>
+        </button>
+      </ion-col>
+    </ion-row> 
+  </div>
+</ion-footer>
